@@ -1,0 +1,39 @@
+--- BEGIN HEADER ---
+Configuration file for the opac.f90 program.
+--- END HEADER ---
+
+--- BEGIN CONFIG. ---
+MODEL ATMOSPHERE PROPERTIES:
+Core mass                    = 11.492                           [earth masses]
+Envelope mass                = 3.288E-01                        [earth masses]
+Molecular weight             = 2.3                              [g/mol]
+Collision cross-section      = 1e-15                            [cm^2]
+
+SOLID MATTER PROPERTIES:
+Grain matter density         = 2.8                              [g/cm^3]
+Solids accretion rate        = 8.076e-12                        [g/cm^2/s]
+Dust-to-gas ratio            = 0.01
+Monomer size (smallest bin)  = 1.e-4                            [cm]
+Source size                  = small                            [small or equal]
+
+ALGORITHM FREE PARAMETERS:
+Number of size bins          = 35
+Bin spacing parameter        = 3.0                              [>=3]
+Maximum time step            = 1e6                              [sec]
+Sticking coefficient         = 1.0                              [0-1]
+
+PROGRAM SETTINGS:
+Initial distribution file    = new                              [filename or new]
+Atmosphere file              = atm.dat                          [filename]
+Refractive index table       = ind.dat                          [filename]
+Planetesimals source file    = none                             [filename or none]
+Target time(s)               = 0e0 3e9                          [sec]
+
+DEBUG OPTIONS:
+Sedimentation                = on
+Coagulation                  = on
+Source term                  = on
+Progress messages            = on
+
+--- END CONFIG. ---
+
