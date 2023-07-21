@@ -1,0 +1,173 @@
+\documentclass[aps,pra,preprint]{revtex4-2}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage[pdftex,bookmarks=false,pdfstartview=FitH,colorlinks]{hyperref}
+\hypersetup{linkcolor=Sepia,citecolor=Sepia}
+\usepackage[all]{hypcap}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{result}[theorem]{Result}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{examples}{Examples}
+\DeclareMathOperator{\diff}{diff}
+\newcommand{\sub}[1]{_{\text{#1}}}
+\newcommand{\unit}[1]{\,\mathrm{#1}} % attach units
+\newcommand{\V}[1]{\mathbf{#1}} % bold vector or matrix
+\newcommand{\grad}{\nabla} % gradient operator
+\newcommand{\di}{\partial} % partial derivative
+\newcommand{\kros}{\times} % vector product
+\newcommand{\rom}[1]{\mathrm{#1}} % upright function name
+\newcommand{\abs}[1]{\left\vert#1\right\vert} % generic absolute value
+\newcommand{\set}[1]{\left\{#1\right\}} % put elements between { }
+\newcommand{\Real}{\mathbb R} % Real numbers field
+\newcommand{\Cmplx}{\mathbb C} % Complex numbers field
+\newcommand{\eps}{\varepsilon} % variirtes epsilon
+\newcommand{\To}{\longrightarrow} % a long right arrow
+\newcommand{\Vomega}{\boldsymbol{\omega}}
+\newcommand{\VOmega}{\boldsymbol{\Omega}}
+\newcommand{\Veps}{\boldsymbol{\epsilon}}
+
+\begin{document}
+
+\title{Over-simplified single-size model}
+\author{Naor Movshovitz}
+\email{nmovshov@ucsc.edu}
+\affiliation{UC Santa Cruz}
+
+\begin{abstract}
+Notes to myself on the simple model. The purpose of this model is to estimate a
+characteristic grain size in a steady state sedimentation scenario. Basically,
+I try to find one grain size in each zone that equalizes the typical times of
+sedimentation and coagulation.
+
+\end{abstract}
+\maketitle
+
+\section*{Atmospheric data}
+I read the gas density and temperature at 60 \emph{locations} in the atmosphere
+from file, e.g., \textsc{atm.dat}. I convert this to 59 \emph{zones}, or
+layers, with $l_k$ using the values in $Z_{k+1}$, $T_{k+1}$, and
+$\rho^{\text{gas}}_{k+1}$. In other words, the gas density in the first zone is
+taken from the \emph{second} line of \textsc{atm.dat}, and so on. (Should I use
+mean values instead? Probably not.)
+
+\section*{Grain independent properties}
+I denote by $l$ the layer thickness, i.e., $l=\abs{\diff(Z)}$. The acceleration
+of gravity at each zone is
+\begin{equation}
+g=\frac{GM_{\text{core}}}{Z^2},
+\end{equation}
+where $M_{\text{core}}=6.9\times10^{25}\unit{kg}$ is the core mass of the
+protoplanet, and $G=6.673\times10^{-11}\unit{m^3\,kg^{-1}\,s^{-2}}$ is the
+universal gravitational constant. The gas number density is
+\begin{equation}
+n_{\text{gas}}=\frac{\rho_{\text{gas}}N_\text{A}}{\mu},
+\end{equation}
+where $N_{\text{A}}=6.02\text{e23}\unit{\text{mole}^{-1}}$ is Avogadro's number
+and $\mu=2.3\text{e-3}\unit{kg/\text{mole}}$ is the mean molecular weight of
+the gas. The thermal velocity of the gas molecules is given by
+\begin{equation}\label{eq:vthgas}
+v_\text{th}^\text{gas}=\sqrt{\frac{8K_\text{B}T{N}_\text{A}}{\pi\mu}}.
+\end{equation}
+(Boltzmann's constant in mks is $K_\text{B}=1.38e-23\unit{J/^\circ{K}}$.)
+Finally, the mean free path of a gas molecule is given by
+\begin{equation}
+\text{mfp}=\frac{1}{\sqrt{2}n_\text{gas}\sigma},
+\end{equation}
+with $\sigma=1\text{e-19}\unit{m^2}$ as the molecular collision cross section.
+Table~\ref{tab:values1} gives some typical values of these dynamic properties.
+
+\begin{table}
+\caption{\label{tab:values1}Typical values of grain independent atmospheric and
+dynamic properties.}
+\begin{ruledtabular}
+\begin{tabular}{ccccccc}
+$Z\,[\rom{m}]$ & $T\,[\rom{^\circ{K}}]$ & $g\,[\rom{m/s^2}]$ &
+$\rho_\text{gas}\,[\rom{kg/m^3}]$ & $n_\text{gas}\,[\rom{1/m^3}]$ &
+$v_\text{th}^\text{gas}\,[\rom{m/s}]$ & $\text{mfp}_\text{gas}\,[\rom{m}]$ \\
+\hline
+$5.9\text{e9}$ & $154$ & $1.3\text{e-4}$ & $7.4\text{e-8}$ & $1.9\text{e19}$ &
+$1.2\text{e3}$ & $3.6\text{e-1}$ \\ $2.1\text{e9}$ & $168$ & $1.0\text{e-3}$ &
+$2.8\text{e-6}$ & $7.3\text{e20}$ & $1.2\text{e3}$ & $9.7\text{e-3}$ \\
+$1.2\text{e9}$ & $257$ & $3.3\text{e-3}$ & $7.0\text{e-5}$ & $1.8\text{e22}$ &
+$1.5\text{e3}$ & $3.8\text{e-4}$
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\section*{Sedimentation speed and time}
+The Knudsen number is much greater than one in most of the zones and for most
+conceivable grain sizes. The only exception is deep in the atmosphere, and even
+then only for the largest grains. I therefore use Epstein drag in my
+calculation. The drag force then is given by
+\begin{equation}
+F_\text{drag} = 
+\frac{4\pi{a}^2\rho_\text{gas}v_\text{th}^\text{gas}v_\text{sed}}{3},
+\end{equation}
+and the sedimentation speed can be found by setting $F=mg$:
+\begin{equation}
+v_\text{sed} = 
+\frac{\rho_\text{grain}g}{\rho_\text{gas}v_\text{th}^\text{gas}}\,a.
+\end{equation}
+The time to sediment out of the layer is $l/v_\text{sed}$. The sedimentation
+time for a $10$ micron grain ranges from a few years in the uppermost layer to
+hundreds of years deeper in the atmosphere.
+
+\section*{Coagulation time}
+In a steady state the total mass of dust coming into a layer per unit time is
+equal to the total mass going out of the layer at the same time. There is
+therefore a simple expression for the flux $F$ going through each layer,
+\begin{equation}\label{eq:flux}
+F=F_0\frac{Z_0^2}{Z^2},
+\end{equation}
+where $Z_0$ is the ``end'' of the atmosphere, and in each layer,
+\begin{equation}
+F=\frac{4\pi}{3}a^3\rho_\text{grain}n_\text{grain}v_\text{sed}.
+\end{equation}
+(At this time there is no source term of dust representing breakup of
+planetesimals etc.) I take $F=4\text{e-12}\unit{kg\,m^{-2}\,s^{-1}}$ based on
+$1\text{e-8}$ Earth masses a year falling onto the planet from the solar
+nebula. I therefore have $n_\text{grain}$, the number density of grains in each
+zone:
+\begin{equation}
+n_\text{grain}=\frac{3F}{4\pi{a}^3\rho_\text{grain}v_\text{sed}}.
+\end{equation}
+The mean distance between grains is
+\begin{equation}
+\text{mfp}_\text{grain}=\frac{1}{\sqrt{2}n_\text{grain}\sigma_\text{grain}}.
+\end{equation}
+For $\sigma$, the grains collision cross section, Morris takes $4\pi^2$,
+because if the center of one grain gets closer than $2a$ to the center of
+another grain they will collide. So
+\begin{equation}
+\text{mfp}_\text{grain}=\frac{1}{\sqrt{2}4\pi{a}^2n_\text{grain}}.
+\end{equation}
+The random speed of the grain due to Brownian motion is
+\begin{equation}
+v_\text{th}^\text{grain}=\sqrt{\frac{8K_\rom{B}T}{\pi{m}_\text{grain}}},
+\end{equation}
+and $t_\text{coag}=\text{mfp}_\text{grain}/v_\text{th}^\text{grain}$.
+
+\section*{Characteristic grain size}
+Setting $t_\text{sed}=t_\text{coag}$ and solving for $a$ yields
+\begin{equation}
+a = \left[\frac{3\sqrt{12K_\rom{B}T}}{\pi}
+\frac{Fl\rho_\text{gas}^2(v_\text{th}^\text{gas})^2}
+{\rho_\text{grain}^{7/2}g^2}
+\right]^{2/9}.
+\end{equation}
+Substituting in Eqs.~\eqref{eq:flux} and~\eqref{eq:vthgas} we get
+\begin{equation}
+a = \left[
+\frac{48\sqrt{3}N_\rom{A}(K_\rom{B}T)^{3/2}F_0Z_0^2\rho_\text{gas}^2l}
+{\pi^2\mu\rho_\text{grain}^{7/2}g^2Z^2}
+\right]^{2/9}.
+\end{equation}
+
+\end{document}

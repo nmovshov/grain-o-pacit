@@ -1,6 +1,15 @@
+# Editor detritus files
 *~
 *.asv
 *.swp
+
+# latex temp files and changing targets
+*.aux
+*.bbl
+*.log
+*.blg
+*.out
+*.synctex.gz
 
 # Prerequisites
 *.d

@@ -1,0 +1,58 @@
+\documentclass[aps,pra,preprint]{revtex4-2}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage[pdftex,bookmarks=false,pdfstartview=FitH,colorlinks]{hyperref}
+\hypersetup{linkcolor=Sepia,citecolor=Sepia}
+\usepackage[all]{hypcap}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{result}[theorem]{Result}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{examples}{Examples}
+
+\newcommand{\sub}[1]{_{\text{#1}}}
+\newcommand{\unit}[1]{\,\mathrm{#1}} % attach units
+\newcommand{\V}[1]{\mathbf{#1}} % bold vector or matrix
+\newcommand{\grad}{\nabla} % gradient operator
+\newcommand{\di}{\partial} % partial derivative
+\newcommand{\kros}{\times} % vector product
+\newcommand{\rom}[1]{\mathrm{#1}} % upright function name
+\newcommand{\abs}[1]{\left\vert#1\right\vert} % generic absolute value
+\newcommand{\set}[1]{\left\{#1\right\}} % put elements between { }
+\newcommand{\Real}{\mathbb R} % Real numbers field
+\newcommand{\Cmplx}{\mathbb C} % Complex numbers field
+\newcommand{\eps}{\varepsilon} % variirtes epsilon
+\newcommand{\To}{\longrightarrow} % a long right arrow
+\newcommand{\Vomega}{\boldsymbol{\omega}}
+\newcommand{\VOmega}{\boldsymbol{\Omega}}
+\newcommand{\Veps}{\boldsymbol{\epsilon}}
+
+\begin{document}
+
+\title{Grain size bins}
+\author{Naor Movshovitz}
+\email{nmovshov@ucsc.edu}
+\affiliation{UC Santa Cruz}
+
+\begin{abstract}
+Explains the size bin spacing and number density formulas.
+\end{abstract}
+\maketitle
+
+According to \texttt{D'Allesio et al., 2001} the dust grain distribution is
+$n(a)=n_0a^{-p}$, with $p$ a free parameter. Taking
+$a_{\text{min}}=5\times10^{-9}\unit{m}$ and
+$a_{\text{max}}=1\times10^{-3}\unit{m}$ and $p=3.5$. We take grains with radii
+$a_i=a_02^{i/2}$, in bins $i=1\ldots{40}$. This translates to taking the number
+density in the $i^{\text{th}}$ bin to be
+\begin{equation}
+n_i=n_0a_0^{-2.5}2^{\frac{-10i+7}{8}}(2^{1/4}-1).
+\end{equation}
+
+\end{document}
